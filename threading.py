@@ -3,44 +3,43 @@
 import threading
 import socket
 
-# Number one (binding one thread to TCP-socket).
-class FirstThread(threading.Thread): #Class for my first thread.
+host = '0.0.0.0' 
+port = 9999  
+
+class FirstThread(threading.Thread): 
     
-    def __init__(self, ip, port, socket): #Class constructor with attributes: main 'self' and 'ip, port, socket'
+    def __init__(self, ip, port, socket): 
         threading.Thread.__init__(self)
 	self.ip = ip 
 	self.port = port
 	self.socket = socket
-	print('[+] New Thread Started For: ', ip, ':', str(port)) #Print where the thread is starting.
+	print('[+] New Thread Started For: ', ip, ':', str(port)) 
 
-    def run(self): #My function 'run'
-        print('Connection from: ', ip, ':', str(port)) #Print from where somebody is connected.
-	self.socket.send('\nWelcome to the server!\n\n') # Sending a message to the client.
+    def run(self): 
+        print('Connection from: ', ip, ':', str(port)) 
+	self.socket.send('\nWelcome to the server!\n\n') 
 	data = 'mydata'
 	
 	while len(data):
-	    data = self.socket.recv(2048) #Buffer Size '2 KiB'
-	    print('Client (%s:%s) sent : %s' %(self.ip, str(self.port), data)) # Print how much did client with this address send me.
-	    self.socket.send('You sent me: ' + data) # Print for client how much did he send me.
-	print('Client at ', self.ip,  ' disconneted...') # While not len(data) printing that client at that ip disconnected.
+	    data = self.socket.recv(2048) 
+	    print('Client (%s:%s) sent : %s' %(self.ip, str(self.port), data)) 
+	    self.socket.send('You sent me: ' + data) 
+	print('Client at ', self.ip,  ' disconneted...') 
 
-host = '0.0.0.0' # host with ip '0.0.0.0', so we can listen all interfaces.
-port = 9999  # and port '9999' TELNET control
-tcp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #Creating an INET and STREAMing socket in variable 'tcp_socket'
-tcp_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # Many applications can listen socket.
-tcp_socket.bind((host, port)) # Bind socket to this adress.
+tcp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
+tcp_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) 
+tcp_socket.bind((host, port)) 
 
 while True:
-    tcp_socket.listen(4) # Become a server socket.
-    print('\nListening for incoming connections...') # Print that we are waiting for incoming connection.
-    (socket, (ip, port)) = tcp_socket.accept() #Accept connections from outside.
+    tcp_socket.listen(4) 
+    print('\nListening for incoming connections...') 
+    (socket, (ip, port)) = tcp_socket.accept() 
     
-    newthread = FirstThread(ip, port, socket) # Pass socket to the FirstThread thread object being created.
-    newthread.start() # Start thread for a new client.
+    newthread = FirstThread(ip, port, socket) 
+    newthread.start() 
 
-# Number two (Thread display console menu with any text).
 def print_menu():
-    print(30 * '-', 'MENU', 30 * '-') # Lines with MENU at the edge.
+    print(30 * '-', 'MENU', 30 * '-') 
     print('1. Menu Option 1') 
     print('2. Menu Option 2') 
     print('3. Menu Option 3') 
@@ -68,4 +67,4 @@ while loop:
     else: 
         raw_input('Wrong option selection. Enter any key to try again..') 
 
-threading.Thread(target = print_menu).start() # Start our menu in threading.
+threading.Thread(target = print_menu).start() 
