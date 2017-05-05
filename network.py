@@ -1,4 +1,4 @@
-from socket import socket
+from socket import socket, AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR
 
 
 def start_tcp_service(host, port):
@@ -13,6 +13,6 @@ def start_tcp_service(host, port):
     while True:
         print('\nListening for incoming connections...')
         conn, addr = tcp_socket.accept()
-        tcp_dict[addr[0]]= conn
+        tcp_dict[addr[0]] = conn
         print(tcp_dict)
 
