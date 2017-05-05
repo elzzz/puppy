@@ -2,7 +2,7 @@
 
 import threading
 from socket import *
-from network import FirstThread
+from network import start_tcp_service
 from menu import print_menu
 
 host = '0.0.0.0' 
