@@ -1,4 +1,4 @@
-def TCP():
+def start_tcp_service():
    ADDR = (host, port)
    IDDR = (ip, port)
    tcp_socket = socket(AF_INET, SOCK_STREAM)
