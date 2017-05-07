@@ -1,9 +1,8 @@
 from socket import socket, AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR
-from logbook import Logger, StreamHandler
-import sys
+from logbook import Logger, FileHandler
 
 
-StreamHandler(sys.stdout).push_application()
+FileHandler('app.log').push_application()
 log = Logger('Test Logger')
 
 def start_tcp_service(host, port):

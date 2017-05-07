@@ -4,11 +4,11 @@ import sys
 import threading
 from network import start_tcp_service
 from menu import print_menu
-from logbook import Logger, StreamHandler
+from logbook import Logger, FileHandler
 
 HOST = '0.0.0.0'
 PORT = 9999
-StreamHandler(sys.stdout).push_application()
+FileHandler('app.log').push_application()
 log = Logger('Test Logger')
 
 if __name__ == '__main__':
