@@ -19,7 +19,7 @@ def start_tcp_service(host, port):
     tcp_dict = {}
 
     while True:
-        print('Listening for incoming connections...')
+        print('\nListening for incoming connections...')
 	log.debug('Listening for incoming connections.')
 	conn, addr = tcp_socket.accept()
 	log.debug('Accepting the connection.')
