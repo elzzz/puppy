@@ -4,7 +4,7 @@ import sys
 import threading
 from network import start_tcp_service
 from menu import print_menu
-from log import get_logger
+from lib.log import get_logger
 
 
 HOST = '0.0.0.0'

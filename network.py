@@ -1,5 +1,5 @@
 from socket import socket, AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR
-from log import get_logger
+from lib.log import get_logger
 
 
 LOG = get_logger()
@@ -13,8 +13,8 @@ def start_tcp_service(host, port):
     tcp_socket.bind((host, port))
     LOG.info('Bind socket to the address: {}:{}'.format(str(host), str(port)))
     tcp_socket.listen(MAX_CONNECTIONS)
-    LOG.info('''Make number of the maximum connections equal: {}
-                               '''.format(str(MAX_CONNECTIONS)))
+    LOG.info('Make number of the maximum connections equal: {}
+                             '''.format(str(MAX_CONNECTIONS)))
 
     tcp_dict = {}
 
