@@ -6,7 +6,6 @@ LOG = get_logger()
 
 def start_tcp_service(host, port):
 
-    LOG = get_logger()
     tcp_socket = socket(AF_INET, SOCK_STREAM)
     tcp_socket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
     LOG.debug('Set options SOL_SOCKET and SO_REUSEADDR.')
