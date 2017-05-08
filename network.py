@@ -1,10 +1,10 @@
 from socket import socket, AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR
-from logbook import Logger
-from mylog import get_logger
+import mylog
 
 
 def start_tcp_service(host, port):
 
+    log = mylog.LOG
     tcp_socket = socket(AF_INET, SOCK_STREAM)
     tcp_socket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
     log.debug('Set options SOL_SOCKET and SO_REUSEADDR.')
