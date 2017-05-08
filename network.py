@@ -3,7 +3,7 @@ from log import get_logger
 
 
 LOG = get_logger()
-NUMBER_OF_CONNECTIONS = 4
+MAX_CONNECTIONS = 4
 
 def start_tcp_service(host, port):
 
@@ -12,9 +12,9 @@ def start_tcp_service(host, port):
     LOG.info('Set options SOL_SOCKET and SO_REUSEADDR.')
     tcp_socket.bind((host, port))
     LOG.info('Bind socket to the address: {}:{}'.format(str(host), str(port)))
-    tcp_socket.listen(NUMBER_OF_CONNECTIONS)
-    LOG.info('''Make number of the maximum connections equal variable
-                                        \'NUMBER_OF_CONNECTIONS\'.''')
+    tcp_socket.listen(MAX_CONNECTIONS)
+    LOG.info('''Make number of the maximum connections equal: {}
+                               '''.format(str(MAX_CONNECTIONS)))
 
     tcp_dict = {}
 
