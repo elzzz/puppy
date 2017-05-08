@@ -1,18 +1,26 @@
 from socket import socket, AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR
+from lib.log import get_logger
 
+
+LOG = get_logger()
+MAX_CONNECTIONS = 4
 
 def start_tcp_service(host, port):
 
     tcp_socket = socket(AF_INET, SOCK_STREAM)
     tcp_socket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
+    LOG.info('Set options SOL_SOCKET and SO_REUSEADDR.')
     tcp_socket.bind((host, port))
-    tcp_socket.listen(4)
+    LOG.info('Bind socket to the address: {}:{}'.format(str(host), str(port)))
+    tcp_socket.listen(MAX_CONNECTIONS)
+    LOG.info('Make number of the maximum connections equal: {}
+                             '''.format(str(MAX_CONNECTIONS)))
 
     tcp_dict = {}
 
     while True:
         print('\nListening for incoming connections...')
+        LOG.info('Listening for incoming connections.')
         conn, addr = tcp_socket.accept()
         tcp_dict[addr[0]] = conn
-        print(tcp_dict)
-
+        LOG.info('Accepting the connection from: {}'.format(str(tcp_dict)))
