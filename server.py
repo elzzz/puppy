@@ -4,12 +4,12 @@ import sys
 import threading
 from network import start_tcp_service
 from menu import print_menu
-import mylog
+from log import get_logger
 
 
 HOST = '0.0.0.0'
 PORT = 9999
-LOG = mylog.LOG
+LOG = get_logger()
 
 if __name__ == '__main__':
 
