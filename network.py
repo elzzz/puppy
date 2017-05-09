@@ -23,4 +23,4 @@ def start_tcp_service(host, port):
         LOG.info('Listening for incoming connections.')
         conn, addr = tcp_socket.accept()
         tcp_dict[addr[0]] = conn
-        LOG.info('Accepting the connection from: {}'.format(str(tcp_dict)))
+        LOG.info('Accepting the connection from: {}'.format(str(tcp_dict[addr[0]])))
