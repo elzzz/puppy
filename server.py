@@ -5,10 +5,11 @@ import threading
 from network import start_tcp_service
 from menu import print_menu
 from lib.log import get_logger
+from lib.config import get_config
 
 
-HOST = '0.0.0.0'
-PORT = 9999
+HOST = get_config('cfg/server.toml')['network']['interface']
+PORT = get_config('cfg/server.toml')['network']['port']
 LOG = get_logger()
 
 if __name__ == '__main__':
