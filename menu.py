@@ -2,6 +2,8 @@ import sys
 import threading
 import network
 
+CONNECTIONS = network.connect()
+
 
 def print_menu():
     print(30 * '-', 'MENU', 30 * '-')
@@ -14,7 +16,7 @@ def print_menu():
         choice = int(input('Enter your choice: '))
 
         if choice == 1:
-            network.display_tcp_clients()
+            display_tcp_clients()
         elif choice == 2:
             network.send_msg().send('Hey from server, my friend.\n')
         elif choice == 3:
@@ -23,3 +25,8 @@ def print_menu():
             sys.exit(0)
         else:
             raw_input('Wrong option, enter again: ')
+
+
+def display_tcp_clients():
+    for conn in CONNECTIONS.iterkeys():
+        print(conn)
