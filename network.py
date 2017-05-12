@@ -1,8 +1,8 @@
 from socket import socket, AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR
 from lib.log import get_logger
 from lib.config import get_config
-from menu import sending_msg
 
+SOCK = {}
 CONNECTIONS = {}
 LOG = get_logger()
 MAX_CONNECTIONS = get_config('cfg/server.toml')['network']['max_connections']
@@ -22,9 +22,8 @@ def start_tcp_service(host, port):
     while True:
         LOG.info('Listening for incoming connections.')
         conn, addr = tcp_socket.accept()
+        SOCK[0] = conn
         CONNECTIONS[addr[0]] = conn
-        if sending_msg() == 2:
-            conn.send('msg')
         LOG.info('''Accepting the connection from: {}
                  '''.format(str(CONNECTIONS[addr[0]])))
 
@@ -32,3 +31,8 @@ def start_tcp_service(host, port):
 def display_tcp_clients():
     for conn in CONNECTIONS.iterkeys():
         print(conn)
+
+
+def send_msg():
+    for value in SOCK.itervalues():
+        return value

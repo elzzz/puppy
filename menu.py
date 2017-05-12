@@ -2,8 +2,6 @@ import sys
 import threading
 import network
 
-CHOICE = {}
-
 
 def print_menu():
     print(30 * '-', 'MENU', 30 * '-')
@@ -18,15 +16,10 @@ def print_menu():
         if choice == 1:
             network.display_tcp_clients()
         elif choice == 2:
-            CHOICE[0] = 2
+            network.send_msg().send('Hey from server, my friend.\n')
         elif choice == 3:
             print('Bye!')
             print(threading.currentThread().getName())
             sys.exit(0)
         else:
             raw_input('Wrong option, enter again: ')
-
-
-def sending_msg():
-    for keys in CHOICE.itervalues():
-        return keys
