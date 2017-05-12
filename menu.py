@@ -2,7 +2,7 @@ import sys
 import threading
 import network
 
-CONNECTIONS = network.connect()
+CONNECTIONS = network.get_connection()
 
 
 def print_menu():

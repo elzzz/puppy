@@ -21,7 +21,6 @@ def start_tcp_service(host, port):
     while True:
         LOG.info('Listening for incoming connections.')
         conn, addr = tcp_socket.accept()
-        global CONNECTIONS
         CONNECTIONS[addr[0]] = conn
         LOG.info('''Accepting the connection from: {}
                  '''.format(str(CONNECTIONS[addr[0]])))
@@ -32,5 +31,5 @@ def send_msg():
         return value
 
 
-def connect():
+def get_connection():
     return CONNECTIONS
