@@ -32,4 +32,4 @@ def send_msg():
 
 
 def get_connection():
-    return CONNECTIONS
+    return enumerate(CONNECTIONS)

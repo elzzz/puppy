@@ -1,6 +1,7 @@
 import sys
 import threading
 import network
+import menu_helper
 
 CONNECTIONS = network.get_connection()
 
@@ -18,7 +19,7 @@ def print_menu():
         if choice == 1:
             display_tcp_clients()
         elif choice == 2:
-            network.send_msg().send('Hey from server, my friend.\n')
+            menu_helper.send_command()
         elif choice == 3:
             print('Bye!')
             print(threading.currentThread().getName())
@@ -28,5 +29,5 @@ def print_menu():
 
 
 def display_tcp_clients():
-    for conn in CONNECTIONS.iterkeys():
-        print(conn)
+    for i, conn in CONNECTIONS:
+        print('{}: {}'.format(i, conn[0]))
