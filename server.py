@@ -14,9 +14,11 @@ LOG = get_logger()
 
 if __name__ == '__main__':
 
-    TCP_SERVICE_THREAD = threading.Thread(target=start_tcp_service,
+    TCP_SERVICE_THREAD = threading.Thread(name='tcpserver',
+                                          target=start_tcp_service,
                                           args=(HOST, PORT))
-    MENU_THREAD = threading.Thread(target=print_menu)
+    MENU_THREAD = threading.Thread(name='menu',
+                                   target=print_menu)
 
     TCP_SERVICE_THREAD.daemon = True
     LOG.info('Daemonizing thread with TCP SERVICE.')

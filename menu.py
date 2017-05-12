@@ -1,8 +1,32 @@
+import sys
+import threading
+import network
+
+CHOICE = {}
+
+
 def print_menu():
     print(30 * '-', 'MENU', 30 * '-')
-    print('1. Menu Option 1')
-    print('2. Menu Option 2')
-    print('3. Menu Option 3')
-    print('4. Menu Option 4')
-    print('5. Exit')
+    print('1. List of attached agents.')
+    print('2. Send something to agent.')
+    print('3. Quit.')
     print(67 * '-')
+
+    while True:
+        choice = int(input('Enter your choice: '))
+
+        if choice == 1:
+            network.display_tcp_clients()
+        elif choice == 2:
+            CHOICE[0] = 2
+        elif choice == 3:
+            print('Bye!')
+            print(threading.currentThread().getName())
+            sys.exit(0)
+        else:
+            raw_input('Wrong option, enter again: ')
+
+
+def sending_msg():
+    for keys in CHOICE.itervalues():
+        return keys
