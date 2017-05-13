@@ -4,19 +4,21 @@ import network
 
 def get_target_server():
 
-    menu.display_tcp_clients()
-    conn_list = network.get_connection()
+    conn_list = network.get_enum_connections()
+    menu.display_tcp_clients(conn_list)
     choice = int(input('Choose server: '))
-    ip = conn_list[choice][0]
-    print(ip)
+    for i, conn in conn_list.iteritems():
+        if i == choice:
+            return conn.values()[0]
+    print('Server ID not found')
 
 
 def get_command():
-    return 'ls -l'
+
+    return raw_input('Type command: ')
 
 
 def send_command():
     target_server = get_target_server()
     command = get_command()
-    print(target_server)
-    print(command)
+    target_server.send(command)
