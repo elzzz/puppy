@@ -3,8 +3,6 @@ import threading
 import network
 import menu_helper
 
-CONNECTIONS = network.get_connection()
-
 
 def print_menu():
     print(30 * '-', 'MENU', 30 * '-')
@@ -17,7 +15,7 @@ def print_menu():
         choice = int(input('Enter your choice: '))
 
         if choice == 1:
-            display_tcp_clients()
+            display_tcp_clients(network.get_enum_connections())
         elif choice == 2:
             menu_helper.send_command()
         elif choice == 3:
@@ -28,6 +26,7 @@ def print_menu():
             raw_input('Wrong option, enter again: ')
 
 
-def display_tcp_clients():
-    for i, conn in CONNECTIONS:
-        print('{}: {}'.format(i, conn[0]))
+def display_tcp_clients(enum_dict):
+
+    for i, conn in enum_dict.iteritems():
+        print('{}: {}'.format(i, conn.keys()[0]))

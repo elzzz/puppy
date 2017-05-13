@@ -31,5 +31,17 @@ def send_msg():
         return value
 
 
-def get_connection():
-    return enumerate(CONNECTIONS)
+def get_connections():
+    return CONNECTIONS
+
+
+def get_enum_connections():
+
+    enum_dict = {}
+    key_pair = {}
+    i = 0
+    for key, value in CONNECTIONS.iteritems():
+        key_pair[key] = value
+        enum_dict[i] = key_pair
+        i += 1
+    return enum_dict
