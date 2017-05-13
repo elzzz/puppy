@@ -14,11 +14,11 @@ def get_target_server():
 
 
 def get_command():
-    return 'ls -l'
+
+    return raw_input('Type command: ')
 
 
 def send_command():
     target_server = get_target_server()
     command = get_command()
-    print(target_server)
-    print(command)
+    target_server.send(command)
