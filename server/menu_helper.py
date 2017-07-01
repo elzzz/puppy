@@ -1,5 +1,7 @@
+import sys
 import menu
 import network
+sys.dont_write_bytecode = True
 
 
 def get_target_server():

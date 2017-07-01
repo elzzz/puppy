@@ -2,6 +2,7 @@ import sys
 import threading
 import network
 import menu_helper
+sys.dont_write_bytecode = True
 
 
 def print_menu():

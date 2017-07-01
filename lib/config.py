@@ -1,4 +1,6 @@
+import sys
 import toml
+sys.dont_write_bytecode = True
 
 
 def get_config(conf_path):

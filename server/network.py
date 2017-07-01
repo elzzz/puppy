@@ -1,10 +1,16 @@
+import sys
 from socket import socket, AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR
-from lib.log import get_logger
-from lib.config import get_config
+sys.path.insert(0, '..')
+sys.dont_write_bytecode = True
+try:
+    from lib.log import get_logger
+    from lib.config import get_config
+except:
+    raise
 
 CONNECTIONS = {}
 LOG = get_logger()
-MAX_CONNECTIONS = get_config('cfg/server.toml')['network']['max_connections']
+MAX_CONNECTIONS = get_config('../cfg/server.toml')['network']['max_connections']
 
 
 def start_tcp_service(host, port):
