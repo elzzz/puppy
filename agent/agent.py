@@ -31,7 +31,7 @@ def connect_agent():
             LOG.info('Received {}'.format(data))
             os.system(data)
     except:
-        LOG.info('Reconnecting...')
+        LOG.error('Server don\'t response')
         time.sleep(1)
         connect_agent()
 
@@ -40,3 +40,4 @@ if __name__ == '__main__':
         connect_agent()
     except KeyboardInterrupt:
         sys.exit()
+        LOG.info('Exit')
