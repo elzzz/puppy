@@ -1,8 +1,41 @@
+from PyQt4 import QtGui
+import buttons
 import sys
 import threading
 import network
 import menu_helper
 sys.dont_write_bytecode = True
+
+
+class MainMenu(QtGui.QMainWindow):
+
+    def __init__(self):
+        super(MainMenu, self).__init__()
+        self.setGeometry(10, 10, 500, 300)
+        self.setWindowTitle('MyLovelyServer')
+        self.display_buttons()
+
+    def display_buttons(self):
+        # btn_clients = buttons.show_clients()
+        # btn_quit = buttons.quit_button()
+        btn_msg = buttons.MessageBox()
+        btn_msg.show()
+
+    def close_application(self):
+        choice = QtGui.QMessageBox.question(self, 'Quit', 'Are you sure?',
+                                            QtGui.QMessageBox.Yes |
+                                            QtGui.QMessageBox.No)
+        if choice == QtGui.QMessageBox.Yes:
+            sys.exit()
+        else:
+            pass
+
+
+def start_gui():
+    app = QtGui.QApplication(sys.argv)
+    main_menu = MainMenu()
+    main_menu.show()
+    sys.exit(app.exec_())
 
 
 def print_menu():

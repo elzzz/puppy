@@ -3,7 +3,7 @@
 import sys
 import threading
 from network import start_tcp_service
-from menu import print_menu
+from menu import start_gui
 sys.path.insert(0, '..')
 sys.dont_write_bytecode = True
 try:
@@ -16,17 +16,18 @@ HOST = get_config('../cfg/server.toml')['network']['interface']
 PORT = get_config('../cfg/server.toml')['network']['port']
 LOG = get_logger()
 
+
 if __name__ == '__main__':
 
     TCP_SERVICE_THREAD = threading.Thread(name='tcpserver',
                                           target=start_tcp_service,
                                           args=(HOST, PORT))
     MENU_THREAD = threading.Thread(name='menu',
-                                   target=print_menu)
+                                   target=start_gui)
 
     TCP_SERVICE_THREAD.daemon = True
     LOG.info('Daemonizing thread with TCP SERVICE.')
-    MENU_THREAD.daemon = True
+    MENU_THREAD.daemon = False
     LOG.info('Daemonizing thread with menu.')
 
     TCP_SERVICE_THREAD.start()
@@ -39,4 +40,4 @@ if __name__ == '__main__':
             pass
     except (KeyboardInterrupt, SystemExit):
         LOG.info('Exit')
-        sys.exit(0)
+        sys.exit()
