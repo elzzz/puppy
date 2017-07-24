@@ -37,6 +37,12 @@ def send_msg():
         return value
 
 
+def execute_commands(agents_list, cmd_line):
+    for agent in agents_list:
+        LOG.info('Command: {}'.format(cmd_line))
+        agent.send(cmd_line)
+
+
 def get_connections():
     return CONNECTIONS
 
