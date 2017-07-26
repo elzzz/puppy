@@ -1,8 +1,12 @@
 from PyQt4 import QtGui
 import sys
+import os
+import curses
 
 import qt
-from nc import run_ncurses
+import cons
+import nc
+import nc_menu
 
 sys.dont_write_bytecode = True
 
@@ -10,8 +14,10 @@ sys.dont_write_bytecode = True
 def start_gui(gui_type):
     if gui_type == 'qt':
         start_qt()
-    else:
+    elif gui_type == 'nc':
         start_ncurses()
+    else:
+        start_menu()
 
 
 def start_qt():
@@ -21,5 +27,11 @@ def start_qt():
     app.exec_()
 
 
+def start_menu():
+    cons.run_console_menu()
+
+
 def start_ncurses():
-    run_ncurses()
+    nc.processmenu(nc_menu.menu_data)
+    curses.endwin()
+    os.system('clear')
