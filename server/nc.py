@@ -15,16 +15,18 @@ curses.init_pair(1, curses.COLOR_RED, curses.COLOR_WHITE)
 h = curses.color_pair(1)
 n = curses.A_NORMAL
 
-MENU = "menu"
-COMMAND = "command"
-EXITMENU = "exitmenu"
+MENU = 'menu'
+COMMAND = 'command'
+EXITMENU = 'exitmenu'
 PRINT = 'print'
+
+connections_map = {}
 
 
 def runmenu(menu, parent):
 
     if parent is None:
-        lastoption = "Exit"
+        lastoption = 'Exit'
     else:
         lastoption = 'Return to {} menu'.format(parent['title'])
 
@@ -46,14 +48,14 @@ def runmenu(menu, parent):
             if pos == index:
                 textstyle = h
             screen.addstr(5+index, 4,
-                          "{}. {}".format(index+1,
+                          '{}. {}'.format(index+1,
                                           menu['options'][index]['title']),
                           textstyle)
             textstyle = n
             if pos == options_count:
                 textstyle = h
             screen.addstr(5+options_count, 4,
-                          "{}. {}".format(options_count+1, lastoption),
+                          '{}. {}'.format(options_count+1, lastoption),
                           textstyle)
             screen.refresh()
 
@@ -75,7 +77,7 @@ def runmenu(menu, parent):
     return pos
 
 
-def processmenu(menu, parent=None):
+def show_menu(menu, parent=None):
     options_count = len(menu['options'])
     exitmenu = False
     while not exitmenu:
@@ -86,28 +88,41 @@ def processmenu(menu, parent=None):
             curses.def_prog_mode()
             os.system('reset')
             screen.clear()
-            os.system(menu['options'][getin]['command'])
-            time.sleep(3)
+            choice = input_data(screen, 0, 0, 'Type your command to send:')
+            screen.addstr(0, 27, choice)
+            connections_map[getin].send(choice)
+            screen.refresh()
+            time.sleep(2)
             screen.clear()
             curses.reset_prog_mode()
             curses.curs_set(1)
             curses.curs_set(0)
         elif menu['options'][getin]['type'] == MENU:
             screen.clear()
-            processmenu(menu['options'][getin], menu)
+            get_agents(menu)
+            show_menu(menu['options'][getin], menu)
             screen.clear()
         elif menu['options'][getin]['type'] == EXITMENU:
             exitmenu = True
-        elif menu['options'][getin]['type'] == PRINT:
-            get_agents()
 
 
-def get_agents():
+def input_data(screen, raw, column, promt_string):
+    curses.noecho()
+    screen.addstr(raw, column, promt_string)
+    screen.refresh()
+    data = screen.getstr(raw + 1, column, 20)
+    return data
+
+
+def get_agents(menu):
+    i = 0
     curr_agents = get_connections()
-
-    i = 6
-    j = 1
     for conn in curr_agents.items():
-        screen.addstr(i, 4, '{}. {}'.format(j+1, conn[0]), curses.A_NORMAL)
-        screen.refresh()
+        agnt_print = {'title': conn[0], 'type': PRINT}
+        agnt_cmd = {'title': conn[0], 'type': COMMAND}
+        connections_map[i] = conn[1]
         i += 1
+        if menu['options'][0]['options'].count(dict(agnt_print)) == 0:
+            menu['options'][0]['options'].insert(0, dict(agnt_print))
+        if menu['options'][1]['options'].count(dict(agnt_cmd)) == 0:
+            menu['options'][1]['options'].insert(0, dict(agnt_cmd))

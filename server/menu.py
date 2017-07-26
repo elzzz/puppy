@@ -32,6 +32,6 @@ def start_menu():
 
 
 def start_ncurses():
-    nc.processmenu(nc_menu.menu_data)
+    nc.show_menu(nc_menu.menu_data)
     curses.endwin()
     os.system('clear')
