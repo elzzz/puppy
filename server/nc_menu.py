@@ -1,22 +1,17 @@
-MENU = 'menu'
-COMMAND = 'command'
-EXITMENU = 'exitmenu'
-PRINT = 'print'
-
 menu_data = {
     'title': 'MyLovelyServer',
-    'type': MENU,
+    'type': 'menu',
     'subtitle': 'Choose the option, please...',
     'options': [
         {
             'title': 'Show TCP Clients',
-            'type': MENU,
+            'type': 'menu',
             'subtitle': 'Connected Clients List:',
             'options': []
         },
         {
             'title': 'Send Command To The Client',
-            'type': MENU,
+            'type': 'menu',
             'subtitle': 'Choose the server, please...',
             'options': []
         },

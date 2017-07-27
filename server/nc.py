@@ -4,26 +4,18 @@ import time
 
 from network import get_connections
 
-screen = curses.initscr()
-curses.curs_set(0)
-curses.noecho()
-curses.cbreak()
-curses.start_color()
-screen.keypad(1)
-
-curses.init_pair(1, curses.COLOR_RED, curses.COLOR_WHITE)
-h = curses.color_pair(1)
-n = curses.A_NORMAL
-
-MENU = 'menu'
-COMMAND = 'command'
-EXITMENU = 'exitmenu'
-PRINT = 'print'
-
 connections_map = {}
 
 
 def runmenu(menu, parent):
+
+    screen = curses.initscr()
+    curses.curs_set(0)
+    curses.noecho()
+    curses.cbreak()
+    curses.start_color()
+    screen.keypad(1)
+    curses.init_pair(1, curses.COLOR_RED, curses.COLOR_WHITE)
 
     if parent is None:
         lastoption = 'Exit'
@@ -44,16 +36,16 @@ def runmenu(menu, parent):
             screen.addstr(4, 2, menu['subtitle'], curses.A_BOLD)
 
         for index in range(options_count):
-            textstyle = n
+            textstyle = curses.A_NORMAL
             if pos == index:
-                textstyle = h
+                textstyle = curses.color_pair(1)
             screen.addstr(5+index, 4,
                           '{}. {}'.format(index+1,
                                           menu['options'][index]['title']),
                           textstyle)
-            textstyle = n
+            textstyle = curses.A_NORMAL
             if pos == options_count:
-                textstyle = h
+                textstyle = curses.color_pair(1)
             screen.addstr(5+options_count, 4,
                           '{}. {}'.format(options_count+1, lastoption),
                           textstyle)
@@ -78,13 +70,18 @@ def runmenu(menu, parent):
 
 
 def show_menu(menu, parent=None):
+
     options_count = len(menu['options'])
+    screen = curses.initscr()
     exitmenu = False
+
     while not exitmenu:
+
         getin = runmenu(menu, parent)
+
         if getin == options_count:
             exitmenu = True
-        elif menu['options'][getin]['type'] == COMMAND:
+        elif menu['options'][getin]['type'] == 'command':
             curses.def_prog_mode()
             os.system('reset')
             screen.clear()
@@ -97,16 +94,17 @@ def show_menu(menu, parent=None):
             curses.reset_prog_mode()
             curses.curs_set(1)
             curses.curs_set(0)
-        elif menu['options'][getin]['type'] == MENU:
+        elif menu['options'][getin]['type'] == 'menu':
             screen.clear()
             get_agents(menu)
             show_menu(menu['options'][getin], menu)
             screen.clear()
-        elif menu['options'][getin]['type'] == EXITMENU:
+        elif menu['options'][getin]['type'] == 'exitmenu':
             exitmenu = True
 
 
 def input_data(screen, raw, column, promt_string):
+
     curses.noecho()
     screen.addstr(raw, column, promt_string)
     screen.refresh()
@@ -115,11 +113,13 @@ def input_data(screen, raw, column, promt_string):
 
 
 def get_agents(menu):
+
     i = 0
     curr_agents = get_connections()
+
     for conn in curr_agents.items():
-        agnt_print = {'title': conn[0], 'type': PRINT}
-        agnt_cmd = {'title': conn[0], 'type': COMMAND}
+        agnt_print = {'title': conn[0], 'type': 'print'}
+        agnt_cmd = {'title': conn[0], 'type': 'command'}
         connections_map[i] = conn[1]
         i += 1
         if menu['options'][0]['options'].count(dict(agnt_print)) == 0:

@@ -17,7 +17,7 @@ def start_gui(gui_type):
     elif gui_type == 'nc':
         start_ncurses()
     else:
-        start_menu()
+        start_console()
 
 
 def start_qt():
@@ -27,7 +27,7 @@ def start_qt():
     app.exec_()
 
 
-def start_menu():
+def start_console():
     cons.run_console_menu()
 
 
