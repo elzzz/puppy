@@ -9,7 +9,7 @@ def index():
 
 @app.route('/agent', methods=['GET'])
 def get_agent_list():
-    return "{'agent_1': '1.2.3.4'}"
+    return "{'agents': {'agent_1': '1.2.3.4', 'agent_2': '9.8.7.6'}}"
 
 
 @app.errorhandler(404)
