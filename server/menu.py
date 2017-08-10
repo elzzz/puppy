@@ -7,6 +7,7 @@ import qt
 import cons
 import nc
 import nc_menu
+from flask_app import views
 
 sys.dont_write_bytecode = True
 
@@ -16,6 +17,8 @@ def start_gui(gui_type):
         start_qt()
     elif gui_type == 'nc':
         start_ncurses()
+    elif gui_type == 'wb':
+        start_web()
     else:
         start_console()
 
@@ -35,3 +38,7 @@ def start_ncurses():
     nc.show_menu(nc_menu.menu_data)
     curses.endwin()
     os.system('clear')
+
+
+def start_web():
+    views.app.run()
