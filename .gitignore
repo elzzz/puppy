@@ -1,4 +1,4 @@
 *.pyc
 *.log
 .idea
-server/FlaskApp/flask
+bower_components

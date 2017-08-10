@@ -1,4 +1,3 @@
-import curses
 import threading
 import sys
 import os

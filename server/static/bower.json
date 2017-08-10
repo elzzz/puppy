@@ -1,0 +1,18 @@
+{
+  "name": "puppy",
+  "description": "Bla bla",
+  "main": "",
+  "license": "EULA",
+  "homepage": "http://localhost:5000/",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "material-design-icons": "^3.0.1"
+  }
+}
