@@ -8,6 +8,7 @@
     <title>Puppy</title>
     <!-- Bootstrap & Additional StyleSheets -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="#" />
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -19,21 +20,22 @@
 
 <body>
 
+
+    <button id="button_refresh" class="btn btn-primary">Refresh</button>
+
     <div class="jumbotron">
         <div class="container-fluid">
-
             <div class="row">
-
-                    <div class="col-md-3">
-                        <div class="list-group" id="agents">
-                            <template id="agents_tmpl">
-                                <a href="#" class="list-group-item">
-                                    <h4 class="list-group-item-heading"></h4>
-                                    <p class="list-group-item-text"></p>
-                                </a>
-                            </template>
-                        </div>
+                <div class="col-md-3">
+                    <div class="list-group" id="agents">
+                        <template id="agents_tmpl">
+                            <a href="#" class="list-group-item">
+                                <h4 class="list-group-item-heading"></h4>
+                                <p class="list-group-item-text"></p>
+                            </a>
+                        </template>
                     </div>
+                </div>
 
                 <div class="col-md-3">
                 </div>
@@ -42,36 +44,29 @@
                 </div>
             </div>
         </div>
-</div>
+    </div>
 
 <script>
 
     $(document).ready(function() {
 
 
-        $.getJSON({
-            type: 'GET',
-            url: '/agent',
-            format: 'json'
-        }).done(function( data ) {
-
-            console.log(data);
-
-
-
+        $.getJSON('/agent', function(data){
+        }).done(function(data) {
             var template = document.querySelector('#agents_tmpl');
             $.each( data['agents'], function( key, value ) {
-
-
-
                 var clone = document.importNode(template.content, true);
                 var element = clone.querySelector('.list-group-item');
-                element.querySelector('.list-group-item-heading').innerHTML = ('Agent: ' + value['id']);
-                element.querySelector('.list-group-item-text').innerHTML = (value['ip']);
-                $( '#agent' ).append(clone);
+                element.querySelector('.list-group-item-heading').innerHTML = ('Agent: ' + key);
+                element.querySelector('.list-group-item-text').innerHTML = (value);
+                $('#agents').append(clone);
 
             });
-    });
+        });
+
+        $('#button_refresh').click(function(){
+            location.reload();
+        });
 
     });
 
