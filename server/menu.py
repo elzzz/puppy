@@ -1,13 +1,12 @@
 from PyQt4 import QtGui
 import sys
 import os
+import curses
 
 import qt
 import cons
-if os.name != 'nt':
-    import curses
-    import nc
-    import nc_menu
+import nc
+import nc_menu
 
 sys.dont_write_bytecode = True
 
