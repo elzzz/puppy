@@ -1,3 +1,7 @@
 *.pyc
+
 *.log
+
 .idea
+.
+/server/static/bower_components
